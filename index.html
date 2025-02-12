@@ -132,14 +132,7 @@
             if (info == undefined && ifPWA() == false) {
                 let tempinterval = setInterval(() => {
                     if (mainchannelsset) {
-                        makeChannel({
-                            assets: "assets/channels/",
-                            channelart: "channelart/",
-                            id: "electron",
-                            title: "Onliine Desktop",
-                            target: "https://github.com/ktg5/onliine-electron/releases/latest"
-                        });
-
+                       
                         document.querySelector('[data-id="electron"]').setAttribute('data-special', true)
                         clearInterval(tempinterval);
                     } else {
