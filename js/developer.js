@@ -86,9 +86,7 @@ function getSettingHtml(target) {
 
             <div id="setting-page" class="ver">
                 <div class="content">
-                    Website version&nbsp;<span id="versionprint">a</span><br>
-                    Onliine latest available: <span id="updatedver"></span><br>
-                    Based upon Wii System 4.3E
+                    Developer Version 1.3E
                 </div>
             </div>
             `;
@@ -97,7 +95,9 @@ function getSettingHtml(target) {
             return `
             ${makeSettingPage([
                 {title: "Developer Menu", type: "text"},
-                {title: "Force Channel Reload", type: "link", goto: "/reset.html"},
+                {title: "Force Channel Reload", type: "link", goto: "/fr.html"},
+                {title: "Install HB Channel", type: "link", goto: "installer.html"},
+                {title: "Back to normal Settings", type: "link", goto: "index.html"},
                 {title: "Return to Settings", type: "button", goto: "index", special: "back"},
             ])}
             `;
@@ -129,9 +129,7 @@ function getSettingHtml(target) {
 
             <div id="setting-page" class="ver">
                 <div class="content">
-                    Website version&nbsp;<span id="versionprint">a</span><br>
-                    Onliine latest available: <span id="updatedver"></span><br>
-                    Based upon Wii System 4.3E
+                    Developer Version: 1.3E
                 </div>
             </div>
             `;

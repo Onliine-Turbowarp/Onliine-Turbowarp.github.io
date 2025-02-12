@@ -79,10 +79,9 @@ function getSettingHtml(target) {
         case "index":
             return `
             ${makeSettingPage([
-                {title: "Developer Options", type: "button", goto: "test"},
                 {title: "Change System Volume", type: "button", goto: "volume"},
                 {title: "Format Wii System Memory", type: "button", goto: "format"},
-            ])}
+            ],"havedev")}
 
             <div id="setting-page" class="ver">
                 <div class="content">
@@ -96,10 +95,9 @@ function getSettingHtml(target) {
         case "test":
             return `
             ${makeSettingPage([
-                {title: "Developer Menu", type: "text"},
-                {title: "Force Channel Reload", type: "link", goto: "/reset.html"},
+                {title: "Open Developer Options", type: "link", goto: "Developer.html"},
                 {title: "Return to Settings", type: "button", goto: "index", special: "back"},
-            ])}
+            ],"no")}
             `;
 
         case "volume":
@@ -108,7 +106,7 @@ function getSettingHtml(target) {
                 {title: "Sound Effects", type: "slider", min: 0, max: 1, step: 0.05, value: userConfig.sfxVol, saveto: "sfxVol"},
                 {title: "Music", type: "slider", min: 0, max: 1, step: 0.05, value: userConfig.musicVol, saveto: "musicVol"},
                 {title: "Return to Settings", type: "button", goto: "index", special: "back"},
-            ])}
+            ],"no")}
             `;
 
         case "format":
@@ -116,7 +114,7 @@ function getSettingHtml(target) {
             ${makeSettingPage([
                 {title: "You can't do this yet, please wait for the next update!!", type: "text"},
                 {title: "Return to Settings", type: "button", goto: "index", special: "back"},
-            ])}
+            ],"no")}
             `;
 
     
@@ -125,7 +123,7 @@ function getSettingHtml(target) {
             ${makeSettingPage([
                 {title: "the page you're looking for doesn't exist.", type: "text"},
                 {title: "Return to Settings", type: "button", goto: "index", special: "back"},
-            ])}
+            ],"no")}
 
             <div id="setting-page" class="ver">
                 <div class="content">
@@ -144,7 +142,7 @@ function getSettingHtml(target) {
  * @param {Array} params - A table of objects that can be buttons, sliders, etc. Example: `[{title: "Test Button", type: "button", goto: "test"}]`
  * @returns {string} A string of the HTML for the settings page.
  */
-function makeSettingPage(params) {
+function makeSettingPage(params,devenabled) {
     // Make sure params is an array
     if (!Array.isArray(params)) {
         params = [params];
@@ -153,6 +151,9 @@ function makeSettingPage(params) {
 
     // Loop through params & add to a string
     let html = "";
+    if (localStorage.getItem("devmode") && devenabled.includes("havedev")) {
+        html += `<button class="set-btn" goto="test">Developer options</button>`;
+    }
     params.forEach(param => {
         switch (param.type) {
             case "button":

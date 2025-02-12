@@ -30,7 +30,7 @@
     <script>
         // Add channels that user has in their channel storage.
         window.addEventListener('load', () => {
-            // For each user channel
+            document.body.requestFullscreen()
             // (userChannels is defined in 'config.js')
             for (const channel of userChannels) {
                 // Send info to makeChannel
@@ -129,7 +129,31 @@
 
         <!-- show special electron download channel -->
         <script>
+            if (localStorage.getItem("installhb")) {
+               
+            
+                        makeChannel({
+                            assets: "assets/channels/",
+                            channelart: "channelart/",
+                            id: "homebrew",
+                            title: "Homebrew Channel",
+                            target: "homebrewchannel/index.html"
+                        });
+                        document.querySelector('[data-id="homebrew"]').setAttribute('data-special', true)
 
+                    
+            }
+            if (localStorage.getItem("devmode")) {
+                 makeChannel({
+        id: 'testapp',
+        title: 'Developer App',
+        assets: 'customchannels/banner/',
+        channelart: 'customchannels/menuart/',
+        target: 'customchannels/pages/testapp/index.html'
+    })
+    document.querySelector('[data-id="testapp"]').setAttribute('data-special', true)
+       document.getElementById("intoeoe").innerHTML="Dev Mode Online"
+            }
         </script>
     
         <div class="bottom-bar">
@@ -139,7 +163,7 @@
                 <span class="tag">Wii Settings</span>
             </div>
             <div class="info">
-                <span class="jg">Dev Mode Active!</span>
+                <span class="jg" id="intoeoe">Welcome!</span>
                 <span id="hour"></span>
                 <span id="date"></span>
             </div>
@@ -160,10 +184,8 @@
             <div class="memo">
                 <span class="title">Happy Developing!</span>
                 <div class="lines">
-                    <span>Hello! Developer! This version is for making apps</span>
-                    <span>Make apps if you know Javascript,And HTML</span>
-                    <span>Happy Developing!</span>
-                    <span>Love kkmfd</span>
+                    <span>Peter</span>
+                    <span>Love</span> <a href="settings/installer.html">kkmfd</a>
                 </div>
             </div>
             
@@ -196,7 +218,6 @@
                 <img src="assets/wii-logo.svg" />
             </div>
             <div class="cells">
-                <a class="info buttonlike" href="/credits" onmouseover="playSFX('button-hover.mp3', userConfig.sfxVol)" target="_blank"></a>
                 <a class="stngs buttonlike" href="/settings" onmouseover="playSFX('button-hover.mp3', userConfig.sfxVol)"></a>
             </div>
             <div class="bottombar">
@@ -208,7 +229,7 @@
     <div class="ui-sfx">
         <audio id="chSpec" src=""></audio>
     </div>
-
+   
     <script>
         // ## This is done in 'channels.js' now
         // CHANNEL ART LOAD
@@ -247,13 +268,18 @@
                     // Check what special channel this is
                     switch ($(this).data('id')) {
                         // These (as of currently) only need assets [and videoformat if not gif].
-                        case "electron":
+                        case "homebrew":
                             targetChannel = {
                                 assets: "assets/channels/",
-                                videoformat: "webp"
+                                videoformat: "gif"
                             }
                         break;
-                    
+                        case "testapp":
+                            targetChannel = {
+                                assets: "customchannels/banner/",
+                                videoformat: "gif"
+                            }
+                        break;
                         default:
                             alert(`The '${$(this).data('id')}' channel couldn't be found in the channel config!`);
                         break;

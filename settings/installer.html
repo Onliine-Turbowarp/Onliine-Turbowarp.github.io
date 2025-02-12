@@ -1,32 +1,23 @@
-<!--
-
-    If you're the administrator of this site,
-    it's better to not touch anything here.
-    This page is (at the moment) mainly used
-    for version sync with my servers and updating.
-
-    Visit the GitHub repository for more information.
-
--->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Developer Settings</title>
+    <title>Settings</title>
     <link rel="manifest" href="../manifest.json">
     <link rel="stylesheet" href="/css/style.css" />
     <script src="/js/jquery.js"></script>
     <script src="/js/howler.min.js"></script>
     <script src="/js/audio.js"></script>
     <script src="/js/config.js"></script>
-    <script src="/js/developer.js"></script>
+    <script src="/js/accept.js"></script>
     <!-- <script src="../js/channels.js"></script> -->
     <script>
         if (document.addEventListener) {
             document.addEventListener('contextmenu', function(e) {
                 e.preventDefault();
+                const audio = new Audio("/audio/home-return-to-app.mp3")
+                audio.play()
                 const nohome4u = document.getElementById('homeNotAv');
                 nohome4u.style.display = 'block';
                 setTimeout(() => {nohome4u.style.display = 'none';}, 2000);
@@ -76,12 +67,40 @@
     <script>var currentMenuPage = "1";</script>
 </head>
 <body>
+    <div class="splash">
+        <div class="warning">
+            <div class="warning-container">
+                <div class="text">
+                    <h2><div class="warn-icon">&#9888;&nbsp;</div>WARNING</h3>
+                    <p class="desc">
+                        THE HB CHANNEL IS NOT DONE!
+                    </p>
+                </div>
+
+                <span>Press left click to continue.</span>
+            </div>
+        </div>
+        <script>
+             // If location includes the "skipwarn" thingy, then skip the warning screen
+             if (document.location.search.includes('skipwarn')) {
+                startup('skipwarn');
+            // Else, show the regular warning scene
+            } else {
+                // Wait for the "Press left click" thingy to appear 'cuz that's how the Wii menu works (i think)
+                startup('skipwarn');
+            }
+        </script>
+
+        <div class="welcomeback disabled">
+        PLEASE WAIT
+            <span class="tip"><strong>Loading:</strong>&nbsp;HBChannelInstaller.elf</span>
+        </div>
+    </div>
     <img src="../assets/nohome4u.png" id="homeNotAv" />
     <div class="settings">
         <div class="settings-content">
             <div class="topbar">
-                <div class="header">Wii Developer <gray>Version 1.3E</gray></div>
-                <div class="version">Wii Ver 4.3E</div>
+                <div class="header">HB Installer</div>
                 <img src="/assets/wii-logo.svg" />
             </div>
             
@@ -125,45 +144,81 @@
             <div id="setting-pages">
                 <div id="setting-page">
                     <div class="content">
-                        if you see this, you have an error
+                        <button class="set-btn" id="Install" onclick="clear()">Install</button>
+                        <a class="set-btn" href="Developer.html">Exit Installer</a>
                     </div>
                 </div>
                 <div id="setting-page" class="ver">
                     <div class="content">
-                        Website version&nbsp;<span id="versionprint">a</span><br>
-                        Onliine latest available: <span id="updatedver"></span><br>
-                        Based upon Wii System 4.3E
+                        Other Installer Options
+                        <button class="set-btn" id="Uninstall">Uninstall Channel</button>
+                        <a class="set-btn" href="/index.html?skipwarning">Wii Menu</a>
                     </div>
                 </div>
             </div>
             <div class="bottombar">
-                <a class="alt-btn" href="/?skipwarn=true">Quit</a>
+        
             </div>
         </div>
     </div>
 
-    <script>
-        // Update check
-        const url = "//jerosajose.github.io/res/sysver.txt";
-        const localver = "1.2";
-        document.getElementById("versionprint").textContent = localver;
-
-        $.get(url, function(fileContent) {
-            document.getElementById("updatedver").textContent = fileContent.trim();
-            if (fileContent.trim() === localver.trim()) {
-                console.log("Update checked: system is up to date");
-            }
-            else if (fileContent.trim() <= localver.trim()) {
-                console.info("bro do be living in the future, you're running on a version that hasn't been released yet lol");
-            }
-            else {
-                alert("There's an update available for Wii System.\nPlease contact the administrator to perform the update.\n\nLatest available: " + fileContent.trim() + "\nYou're running on: " + localver);
-            }
+<script>
+ document.querySelectorAll('#setting-page button').forEach(elmnt => {
+        // On hover
+        elmnt.addEventListener('mouseover', (event) => {
+            playSFX('button-hover.mp3', userConfig.sfxVol);
         });
-        
-        // Init page
-        InitMenu();
-        setSettingsTo('index');
+        // On click
+        elmnt.addEventListener('click', (event) => {
+            if (elmnt.getAttribute('special') !== "undefined" && elmnt.getAttribute('special') !== null) {
+                if (elmnt.getAttribute('special') == "back") {
+                    playSFX('button-cancel.mp3', userConfig.sfxVol);
+                }
+            } else {
+                playSFX('button-select-big.mp3', userConfig.sfxVol);
+            }
+            //setSettingsTo(elmnt.getAttribute('goto'));
+        });
+    });
+    document.querySelectorAll('#setting-page a').forEach(elmnt => {
+        // On hover
+        elmnt.addEventListener('mouseover', (event) => {
+            playSFX('button-hover.mp3', userConfig.sfxVol);
+        });
+        // On click
+        elmnt.addEventListener('click', (event) => {
+            if (elmnt.getAttribute('special') !== "undefined" && elmnt.getAttribute('special') !== null) {
+                if (elmnt.getAttribute('special') == "back") {
+                    playSFX('button-cancel.mp3', userConfig.sfxVol);
+                }
+            } else {
+                playSFX('button-select-big.mp3', userConfig.sfxVol);
+            }
+            //setSettingsTo(elmnt.getAttribute('goto'));
+        });
+    });
+    document.getElementById("Install").addEventListener('click', (event) => {
+            clear()
+        });
+        document.getElementById("Uninstall").addEventListener('click', (event) => {
+            Uninstall()
+        });
+    function Uninstall() 
+    {
+        localStorage.removeItem("devmode")
+        setTimeout(() => {
+                    document.location = "/index.html?skipwarn"
+
+                },1);
+    }
+    function clear() {
+        localStorage.setItem("devmode",true)
+        setTimeout(() => {
+                    document.location = "/index.html?skipwarn"
+
+                }, 1);
+    }
+   
     </script>
 </body>
 </html>
