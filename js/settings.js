@@ -1,8 +1,14 @@
 /**
  * Initializes the buttons for functionality.
  */
+function InitMenu() {
+    const MenuMusic = new Audio("/audio/settings.mp3")
+    MenuMusic.loop = true
+    MenuMusic.play()
+}
 function initSettings() {
     // Buttons
+  
     document.querySelectorAll('#setting-page button').forEach(elmnt => {
         // On hover
         elmnt.addEventListener('mouseover', (event) => {
