@@ -73,7 +73,7 @@ function getSettingHtml(target) {
         case "index":
             return `
             ${makeSettingPage([
-                {title: "This is a Test Button", type: "button", goto: "test"},
+                {title: "Developer Options", type: "button", goto: "test"},
                 {title: "Change System Volume", type: "button", goto: "volume"},
                 {title: "Format Wii System Memory", type: "button", goto: "format"},
             ])}
@@ -90,9 +90,9 @@ function getSettingHtml(target) {
         case "test":
             return `
             ${makeSettingPage([
-                {title: "This is a Test Menu", type: "text"},
+                {title: "Developer Menu", type: "text"},
+                {title: "Force Channel Reload", type: "link", goto: "/reset.html"},
                 {title: "Return to Settings", type: "button", goto: "index", special: "back"},
-                {title: "Test Slider (logged to console)", type: "slider", min: 0, max: 100, step: 1, value: 50},
             ])}
             `;
 
@@ -155,6 +155,11 @@ function makeSettingPage(params) {
                     special = `special="back"`;
                 }
                 html += `<button class="set-btn" goto="${param.goto}" ${special}>${param.title}</button>`;
+            break;
+            case "link":
+            
+                
+                html += `<a class="set-btn" href="${param.goto}">${param.title}</a>`;
             break;
 
             case "slider":

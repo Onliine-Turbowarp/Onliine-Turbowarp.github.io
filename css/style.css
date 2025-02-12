@@ -1098,7 +1098,21 @@ button.set-btn  {
     position: relative;
     transition: 150ms;
 }
-
+a.set-btn  {
+    background-image: url('../assets/set-btn-texture.png');
+    background-size: contain;
+    background-repeat: repeat-x;
+    padding-top: 0.8vh;
+    padding-inline: 1vh;
+    margin: 0 2vw;
+    height: 10vh;
+    color: #444;
+    font-size: 4.5vh;
+    text-align: center;
+    cursor: inherit;
+    position: relative;
+    transition: 150ms;
+}
 button.set-btn::before {
     content: '';
     background-image: url('../assets/set-btn-left.png');
@@ -1109,6 +1123,30 @@ button.set-btn::before {
     position: absolute;
     top: 0;
     left: -2vw;
+}
+a.set-btn::before {
+    content: '';
+    background-image: url('../assets/set-btn-left.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 5vw;
+    position: absolute;
+    top: 0;
+    left: -2vw;
+}
+a.set-btn::after {
+    content: '';
+    background-image: url('../assets/set-btn-right.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 5vw;
+    position: absolute;
+    top: 0;
+    right: -4.9vw;
+}
+a.set-btn:hover {
 }
 
 button.set-btn::after {
@@ -1224,7 +1262,11 @@ button.set-btn:hover {
     width: 50vw;
     margin: 2.5vh auto;
 }
-
+#setting-page a {
+    display: block;
+    width: 50vw;
+    margin: 2.5vh auto;
+}
 #setting-page button:where(:first-child) {
     margin-top: 0;
 }

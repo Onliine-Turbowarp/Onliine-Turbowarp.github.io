@@ -60,6 +60,13 @@ var def_channels = [
         assets: 'assets/channels/',
         channelart: 'channelart/',
         target: 'reset.html'
+    },
+    {
+        id: 'testapp',
+        title: 'Developer App',
+        assets: 'assets/channels/',
+        channelart: 'channelart/',
+        target: 'testapp/index.html'
     }
 ]
 

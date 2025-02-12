@@ -1,7 +1,5 @@
-# Welcome to Onliine!
-The website that simulates the Wii System to perfection (almost).
-![Project Logo](https://raw.githubusercontent.com/jerosajose/onliine/main/assets/logotype.png)
-
-## Collaborations
-This Project uses jerosajoses onliine wii menu to have cool turbowarp projects put as channels
-Projects will have a thumbnail and credits for people who play it
+# Onliine Developer Enviornment
+This is for people who want to make apps for it
+create a codespace and experiment
+the app is already imported
+if you change the apps directory please use the channel refresh
