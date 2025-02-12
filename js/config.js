@@ -46,7 +46,7 @@ var def_channels = [
         title: 'Wii Shop Channel',
         assets: 'assets/channels/',
         channelart: 'channelart/',
-        target: '/shop/index.html'
+        target: 'shop/index.html'
     },
     {
         id: 'news',
@@ -59,7 +59,7 @@ var def_channels = [
         title: 'Onliine Channel',
         assets: 'assets/channels/',
         channelart: 'channelart/',
-        target: '//github.com/Ascript89/onliine'
+        target: 'reset.html'
     }
 ]
 

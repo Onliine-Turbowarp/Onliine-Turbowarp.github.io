@@ -132,7 +132,7 @@
             if (info == undefined && ifPWA() == false) {
                 let tempinterval = setInterval(() => {
                     if (mainchannelsset) {
-                       
+                  
                         document.querySelector('[data-id="electron"]').setAttribute('data-special', true)
                         clearInterval(tempinterval);
                     } else {
@@ -165,15 +165,15 @@
         <div class="bg"></div>
         <div class="card buttonlike" onclick="playSFX('letter-in.mp3', userConfig.sfxVol)">
             <img src="assets/petermiiffin-head.png" class="mii" /><br>
-            <span>Hello Lois</span>
+            <span>Reset Channel</span>
         </div>
         <div class="opened">
             <div class="memo">
                 <span class="title">Memo</span>
                 <img src="assets/petermiiffin-head.png" class="mii" title="Peter Miiffin lol" />
                 <div class="lines">
-                    <span>This is a nice sample letter,</span>
-                    <span>with multiple lines.</span>
+                    <span>This is for emergency uses only</span>
+                    <a href="reset.html">Reset</a>
                 </div>
             </div>
             <a class="alt-btn back" onmouseover="playSFX('button-hover.mp3', userConfig.sfxVol)">Back</a>
