@@ -69,10 +69,16 @@
             </div>
         </div>
         <script>
-            // If location includes the "skipwarn" thingy, then skip the warning screen
-        
+             // If location includes the "skipwarn" thingy, then skip the warning screen
+             if (document.location.search.includes('skipwarn')) {
                 startup('skipwarn');
-          
+            // Else, show the regular warning scene
+            } else {
+                // Wait for the "Press left click" thingy to appear 'cuz that's how the Wii menu works (i think)
+                setTimeout(() => {
+                    document.querySelector('.splash .warning').addEventListener('click', startup, true);
+                }, 3000);
+            }
         </script>
 
         <div class="welcomeback disabled">

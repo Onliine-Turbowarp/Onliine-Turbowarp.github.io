@@ -56,7 +56,7 @@ var def_channels = [
     },
     {
         id: 'onliine',
-        title: 'Onliine Channel',
+        title: 'Reset Channel',
         assets: 'assets/channels/',
         channelart: 'channelart/',
         target: 'reset.html'
@@ -64,9 +64,9 @@ var def_channels = [
     {
         id: 'testapp',
         title: 'Developer App',
-        assets: 'assets/channels/',
-        channelart: 'channelart/',
-        target: 'testapp/index.html'
+        assets: 'customchannels/banner/',
+        channelart: 'customchannels/menuart/',
+        target: 'customchannels/pages/testapp/index.html'
     }
 ]
 
