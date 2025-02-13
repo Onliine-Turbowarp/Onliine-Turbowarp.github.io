@@ -59,7 +59,14 @@ var def_channels = [
         title: 'Wii Arch',
         assets: 'customchannels/banner/',
         channelart: 'customchannels/menuart/',
-        target: 'customchannels/pages/retroarch/index.html'
+        target: 'customchannels/pages/games/index.html'
+    },  
+     {
+        id: 'scratchbound',
+        title: 'Scratch Bound',
+        assets: 'customchannels/banner/',
+        channelart: 'customchannels/menuart/',
+        target: 'customchannels/pages/games/scratchbound.html'
     }
 ]
 var Latestcver = 1.3
