@@ -7,6 +7,7 @@
     <link rel="manifest" href="manifest.json">
     <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="css/style.css" />
+    <script src="js/channelversionchecker.js"></script>
     <script src="js/script.js"></script>
     <script src="js/jquery.js"></script>
     <script src="js/howler.min.js"></script>
@@ -14,7 +15,6 @@
     <script src="js/audio.js"></script>
     <script src="js/config.js"></script>
     <script src="js/channels.js"></script>
-
     <meta property="og:site_name" content="Onliine" />
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content="Onliine Web" />
@@ -72,13 +72,22 @@
              // If location includes the "skipwarn" thingy, then skip the warning screen
              if (document.location.search.includes('skipwarn')) {
                 startup('skipwarn');
+                setTimeout(() => {
+                    checkforupdate()
+                }, 4000);
             // Else, show the regular warning scene
             } else {
                 // Wait for the "Press left click" thingy to appear 'cuz that's how the Wii menu works (i think)
                 setTimeout(() => {
-                    document.querySelector('.splash .warning').addEventListener('click', startup, true);
+                    document.querySelector('.splash .warning').addEventListener('click', boot, true);
                 }, 3000);
             }
+        function boot(){
+        startup();
+        setTimeout(() => {
+                    checkforupdate()
+                }, 4000);
+        }
         </script>
 
         <div class="welcomeback disabled">
@@ -143,17 +152,7 @@
 
                     
             }
-            if (localStorage.getItem("devmode")) {
-                 makeChannel({
-        id: 'testapp',
-        title: 'Developer App',
-        assets: 'customchannels/banner/',
-        channelart: 'customchannels/menuart/',
-        target: 'customchannels/pages/testapp/index.html'
-    })
-    document.querySelector('[data-id="testapp"]').setAttribute('data-special', true)
-       document.getElementById("intoeoe").innerHTML="Dev Mode Online"
-            }
+           
         </script>
     
         <div class="bottom-bar">

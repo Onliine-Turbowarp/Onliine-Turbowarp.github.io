@@ -76,6 +76,7 @@ function bgMusicToggle(forceToggle) {
 function bgMusicToggleInst(forceToggle) {
     // If forceToggle is on
     const bgMusic1 = new Audio("/audio/bg-inst.mp3")
+    bgMusic1.loop = true
     if (forceToggle) {
         if (forceToggle == false) {
             bgMusic1.pause();

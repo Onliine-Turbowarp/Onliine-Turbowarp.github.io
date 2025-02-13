@@ -40,6 +40,11 @@ function rm2() {
     setTimeout(() => {document.body.classList.add("fadeOut");}, 1000);
     setTimeout(() => {window.location.href = "/?skipwarn=true";}, 1500);
 }
+function update2() {
+    playSFX('returntomenu.mp3', userConfig.sfxVol);
+    setTimeout(() => {document.body.classList.add("fadeOut");}, 1000);
+    setTimeout(() => {window.location.href = "/reset.html";}, 1500);
+}
 
 function settingsIn() {
     playSFX('sidemenu.mp3', userConfig.sfxVol);
@@ -71,14 +76,19 @@ function startup(params) {
 
         // Add fade in
         document.querySelector('.main-menu').style = 'animation: fadeIn .5s;';
-
+        const currentver = localStorage.getItem("cver")
+        const latestver = localStorage.getItem("lcver")
+        if (currentver != latestver) {
+        document.location = "update"
+        }
         // Play sound
         playSFX('startup.mp3', userConfig.musicVol);
         bgMusicToggle();
-
+        checkforupdate();
         // Remove animation from main menu
         setTimeout(() => {
             document.querySelector('.main-menu').style = '';
+            
         }, 500);
     }, 3000);
 }

@@ -923,7 +923,7 @@ body:has(.main-menu.ch-trans-on) .ch-selection {
     z-index: 500;
 }
 
-.returndialog .msgbox {
+.returndialog .msgbox .returndialog2 {
     background-image: url("../assets/bg-pattern.png");
     width: 100vh; height: 70vh;
     border-radius: 1vw;
