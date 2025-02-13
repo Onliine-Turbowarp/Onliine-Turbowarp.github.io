@@ -81,6 +81,7 @@ function getSettingHtml(target) {
             ${makeSettingPage([
                 {title: "Change System Volume", type: "button", goto: "volume"},
                 {title: "Format Wii System Memory", type: "button", goto: "format"},
+                {title: "Check For Updates", type: "link", goto: "/update/checker.html"},
             ],"havedev")}
 
             <div id="setting-page" class="ver">
@@ -99,7 +100,6 @@ function getSettingHtml(target) {
                 {title: "Return to Settings", type: "button", goto: "index", special: "back"},
             ],"no")}
             `;
-
         case "volume":
             return `
             ${makeSettingPage([ 

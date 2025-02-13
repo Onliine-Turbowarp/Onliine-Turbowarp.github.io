@@ -40,11 +40,6 @@ function rm2() {
     setTimeout(() => {document.body.classList.add("fadeOut");}, 1000);
     setTimeout(() => {window.location.href = "/?skipwarn=true";}, 1500);
 }
-function update2() {
-    playSFX('returntomenu.mp3', userConfig.sfxVol);
-    setTimeout(() => {document.body.classList.add("fadeOut");}, 1000);
-    setTimeout(() => {window.location.href = "/reset.html";}, 1500);
-}
 
 function settingsIn() {
     playSFX('sidemenu.mp3', userConfig.sfxVol);
@@ -61,36 +56,40 @@ function startup(params) {
         setTimeout(() => {
             document.querySelector('.welcomeback').classList.remove('disabled');
             document.querySelector('.warning').classList.add('disabled');
+            setTimeout(() => {
+                // Disable all splashes
+                document.querySelector('.splash').style = 'animation: fadeOut .5s;';
+
+                // Remove animation from main menu
+                setTimeout(() => {
+                    bgMusicToggleInst2(true);
+                    document.querySelector('.splash').classList.add('disabled');
+                }, 500);
+            }, 3000);
         }, 10);
     // Else, show warning splash.
     } else {
         playSFX(`button-select.mp3`, userConfig.sfxVol)
-        document.querySelector('.splash').style.opacity = '0';
+        document.querySelector('.desc').innerHTML="Loading Installer Est 3 Seconds";
+        setTimeout(() => {
+            // Disable all splashes
+            document.querySelector('.splash').style = 'animation: fadeOut .5s;';
+    
+            // Play sound
+            playSFX('installer.mp3', userConfig.musicVol);
+            setTimeout(() => {
+                document.querySelector('.splash').classList.add('disabled');
+            }, 500);
+            // Remove animation from main menu
+            setTimeout(() => {
+                bgMusicToggleInst2(true);
+                document.querySelector('.splash').classList.add('disabled');
+            }, 10000);
+        }, 3000);
     }
 
     // Wait three seconds & display everything.
-    setTimeout(() => {
-        // Disable all splashes
-        document.querySelector('.splash').classList.add('disabled');
-        document.querySelector('.main-menu').classList.remove('disabled');
 
-        // Add fade in
-        document.querySelector('.main-menu').style = 'animation: fadeIn .5s;';
-        const currentver = localStorage.getItem("cver")
-        const latestver = localStorage.getItem("lcver")
-        if (currentver != latestver) {
-        alert("Alert!,An Update has been detected!, Please update by going into the Settings and going to Update, This is to sync channels to get new ones")
-        }
-        // Play sound
-        playSFX('startup.mp3', userConfig.musicVol);
-        bgMusicToggle();
-        checkforupdate();
-        // Remove animation from main menu
-        setTimeout(() => {
-            document.querySelector('.main-menu').style = '';
-            
-        }, 500);
-    }, 3000);
 }
 
 

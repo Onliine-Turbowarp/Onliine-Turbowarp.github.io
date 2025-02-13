@@ -94,6 +94,27 @@ function bgMusicToggleInst(forceToggle) {
         alert('how the hell the bgmusic get called to stop but it aint even here???');
     }
 }
+function bgMusicToggleInst2(forceToggle) {
+    // If forceToggle is on
+    const bgMusic2 = new Audio("/audio/settings.mp3")
+    bgMusic2.loop = true
+    if (forceToggle) {
+        if (forceToggle == false) {
+            bgMusic2.pause();
+        } else if (forceToggle == true) {
+            bgMusic2.play();
+        }
+    // If BG Music is playing
+    } else if (bgMusic1.playing() == true) {
+        bgMusic2.pause();
+    // Or, if it's paused
+    } else if (bgMusic1.playing() == false) {
+        bgMusic2.play();
+    // Else nothing else!
+    } else {
+        alert('how the hell the bgmusic get called to stop but it aint even here???');
+    }
+}
 
 // Toggle BG Music Intro
 function bgMusicIntroToggle(forceToggle) {

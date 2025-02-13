@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Update Detected!</title>
+    <link rel="manifest" href="../manifest.json">
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="/js/jquery.js"></script>
+    <script src="/js/howler.min.js"></script>
+    <script src="/js/audio.js"></script>
+    <script src="/js/config.js"></script>
+    <script src="/js/upd.js"></script>
+    <!-- <script src="../js/channels.js"></script> -->
+    <script>
+        if (document.addEventListener) {
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                const audio = new Audio("/audio/home-return-to-app.mp3")
+                audio.play()
+                const nohome4u = document.getElementById('homeNotAv');
+                nohome4u.style.display = 'block';
+                setTimeout(() => {nohome4u.style.display = 'none';}, 2000);
+            }, false);
+        }
+        else {
+            document.attachEvent('oncontextmenu', function() {
+                alert("why u clickin");
+                window.event.returnValue = false;
+            });
+        }
+    </script>
+    <style>
+        .settings, .settings-content {
+            display: block;
+        }
+        .topbar {
+            justify-content: space-evenly !important;
+        }
+        .version {
+            color: #ccc;
+            font-size: 3vh;
+        }
+        .header {
+            background-color: white;
+            color: #333;
+            font-size: 4.5vh;
+            line-height: 7vh;
+            padding: 0 20vh 0 2vh;
+            border-top-left-radius: 1vh;
+            border-top-right-radius: 4vh;
+        }
+        gray {
+            color: #ccc;
+        }
+        div.ver {
+            color: white;
+            text-align: center;
+            font-size: 4vh;
+            line-height: 7vh;
+            position: absolute;
+            left: 50vw;
+            transform: translateX(-50%);
+        }
+    </style>
+
+    <script>var currentMenuPage = "1";</script>
+</head>
+<body>
+
+    <div class="splash">
+        <div class="warning">
+            <div class="warning-container">
+                <div class="text">
+                    <h2><div class="warn-icon">&#9888;&nbsp;</div>WARNING</h3>
+                    <p class="desc">
+                        THE HB CHANNEL IS NOT DONE!
+                    </p>
+                </div>
+
+                <span>Press left click to continue.</span>
+            </div>
+        </div>
+        <script>
+             // If location includes the "skipwarn" thingy, then skip the warning screen
+             if (document.location.search.includes('skipwarn')) {
+                startup('skipwarn');
+            // Else, show the regular warning scene
+            } else {
+                // Wait for the "Press left click" thingy to appear 'cuz that's how the Wii menu works (i think)
+                startup('skipwarn');
+            }
+        </script>
+
+        <div class="welcomeback disabled">
+        PLEASE WAIT
+            <span class="tip"><strong>Loading:</strong>&nbsp;HBChannelInstaller.elf</span>
+        </div>
+    </div>
+    <img src="../assets/nohome4u.png" id="homeNotAv" />
+    <div class="settings">
+        <div class="settings-content">
+            <div class="topbar">
+                <div class="header">Channel Update Manager</div>
+                <img src="/assets/wii-logo.svg" />
+            </div>
+            
+            <div id="page-buttons" hidden>
+                <div class="prev">
+                    <img src="../assets/prev-default.png" class="def" />
+                    <img src="../assets/prev-hover.png" class="hover" />
+                </div>
+                <div class="next">
+                    <img src="../assets/next-hover.png" class="hover" />
+                    <img src="../assets/next-default.png" class="def" />
+                </div>
+
+                <script>
+                    //PAGE PREV/NEXT
+                    $('.prev').on('click', function() {
+                        playSFX('nextprev.mp3', userConfig.sfxVol);
+                        $('#setting-pages').animate({ scrollLeft: '-=' + $('#setting-pages').width() }, 0);
+                        currentMenuPage--;
+                        $(".next").css("display", "flex");
+                        // If current page is at the end
+                        if (currentMenuPage == 1) {
+                            $(".prev").css("display", "none");
+                        }
+                    });
+
+                    $('.next').on('click', function() {
+                        playSFX('nextprev.mp3', userConfig.sfxVol);
+                        $('#setting-pages').animate({ scrollLeft: '+=' + $('#setting-pages').width() }, 0);
+                        currentMenuPage++;
+                        $(".prev").css("display", "flex");
+                        // If current page is at the end
+                        if (currentMenuPage == document.querySelectorAll('#setting-page').length) {
+                            $(".next").css("display", "none");
+                        }
+                    });
+                </script>
+            </div>
+
+            <div id="setting-popup"></div>
+            <div id="setting-pages">
+                <div id="setting-page" class="ver">
+                    <div class="content">
+                        Current version&nbsp;<span id="versionprint">a</span><br>
+                        latest Version available: <span id="updatedver"></span><br>
+                        <button class="set-btn" id="Install" onclick="clear()">Install</button>
+                        <a class="set-btn" href="index.html" id="dver" style="display: none;">Update Now</a>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="bottombar">
+        
+            </div>
+        </div>
+    </div>
+ 
+<script>
+ document.querySelectorAll('#setting-page button').forEach(elmnt => {
+        // On hover
+        elmnt.addEventListener('mouseover', (event) => {
+            playSFX('button-hover.mp3', userConfig.sfxVol);
+        });
+        // On click
+        elmnt.addEventListener('click', (event) => {
+            if (elmnt.getAttribute('special') !== "undefined" && elmnt.getAttribute('special') !== null) {
+                if (elmnt.getAttribute('special') == "back") {
+                    playSFX('button-cancel.mp3', userConfig.sfxVol);
+                }
+            } else {
+                playSFX('button-select-big.mp3', userConfig.sfxVol);
+            }
+            //setSettingsTo(elmnt.getAttribute('goto'));
+        });
+    });
+    document.querySelectorAll('#setting-page a').forEach(elmnt => {
+        // On hover
+        elmnt.addEventListener('mouseover', (event) => {
+            playSFX('button-hover.mp3', userConfig.sfxVol);
+        });
+        // On click
+        elmnt.addEventListener('click', (event) => {
+            if (elmnt.getAttribute('special') !== "undefined" && elmnt.getAttribute('special') !== null) {
+                if (elmnt.getAttribute('special') == "back") {
+                    playSFX('button-cancel.mp3', userConfig.sfxVol);
+                }
+            } else {
+                playSFX('button-select-big.mp3', userConfig.sfxVol);
+            }
+            //setSettingsTo(elmnt.getAttribute('goto'));
+        });
+    });
+    document.getElementById("Install").addEventListener('click', (event) => {
+            clear()
+        });
+    function clear() {
+        const currentver = localStorage.getItem("cver")
+    const latestver = localStorage.getItem("lcver")
+    //document.getElementById("versionprint").innerText = currentver + " To " + latestver
+    document.getElementById("updatedver").innerText = 'Checking For Updates... | Est: 10 Seconds'
+    document.getElementById("Install").style = "display: none;"
+    setTimeout(() => {
+                if (currentver != latestver) {
+                        document.getElementById("Install").style = "display: none;"
+                        document.getElementById("dver").style = ""
+                        document.getElementById("updatedver").innerText = 'Update Detected!!'
+                }
+                else
+                {
+                    document.getElementById("Install").style = ""
+                        document.getElementById("updatedver").innerText = 'No Updates Detected'
+                }
+
+                }, 10000);
+    }
+   function update() {
+    const currentver = localStorage.getItem("cver")
+    const latestver = localStorage.getItem("lcver")
+    document.getElementById("versionprint").innerText = currentver
+    document.getElementById("updatedver").innerText = "Please Press Check For Updates"
+    //playSFX('button-select-big.mp3', userConfig.sfxVol);
+   }
+   update();
+    </script>
+</body>
+</html>
