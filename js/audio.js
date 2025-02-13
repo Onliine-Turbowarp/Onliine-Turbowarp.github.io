@@ -73,6 +73,27 @@ function bgMusicToggle(forceToggle) {
         alert('how the hell the bgmusic get called to stop but it aint even here???');
     }
 }
+function bgMusicToggleInst(forceToggle) {
+    // If forceToggle is on
+    const bgMusic1 = new Audio("/audio/bg-inst.mp3")
+    bgMusic1.loop = true
+    if (forceToggle) {
+        if (forceToggle == false) {
+            bgMusic1.pause();
+        } else if (forceToggle == true) {
+            bgMusic1.play();
+        }
+    // If BG Music is playing
+    } else if (bgMusic1.playing() == true) {
+        bgMusic1.pause();
+    // Or, if it's paused
+    } else if (bgMusic1.playing() == false) {
+        bgMusic1.play();
+    // Else nothing else!
+    } else {
+        alert('how the hell the bgmusic get called to stop but it aint even here???');
+    }
+}
 
 // Toggle BG Music Intro
 function bgMusicIntroToggle(forceToggle) {

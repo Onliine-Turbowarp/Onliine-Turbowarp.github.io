@@ -7,6 +7,7 @@
     <link rel="manifest" href="manifest.json">
     <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="css/style.css" />
+    <script src="js/channelversionchecker.js"></script>
     <script src="js/script.js"></script>
     <script src="js/jquery.js"></script>
     <script src="js/howler.min.js"></script>
@@ -14,7 +15,6 @@
     <script src="js/audio.js"></script>
     <script src="js/config.js"></script>
     <script src="js/channels.js"></script>
-
     <meta property="og:site_name" content="Onliine" />
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content="Onliine Web" />
@@ -30,7 +30,7 @@
     <script>
         // Add channels that user has in their channel storage.
         window.addEventListener('load', () => {
-            // For each user channel
+            document.body.requestFullscreen()
             // (userChannels is defined in 'config.js')
             for (const channel of userChannels) {
                 // Send info to makeChannel
@@ -69,16 +69,25 @@
             </div>
         </div>
         <script>
-            // If location includes the "skipwarn" thingy, then skip the warning screen
-            if (document.location.search.includes('skipwarn')) {
+             // If location includes the "skipwarn" thingy, then skip the warning screen
+             if (document.location.search.includes('skipwarn')) {
                 startup('skipwarn');
+                setTimeout(() => {
+                    checkforupdate()
+                }, 4000);
             // Else, show the regular warning scene
             } else {
                 // Wait for the "Press left click" thingy to appear 'cuz that's how the Wii menu works (i think)
                 setTimeout(() => {
-                    document.querySelector('.splash .warning').addEventListener('click', startup, true);
+                    document.querySelector('.splash .warning').addEventListener('click', boot, true);
                 }, 3000);
             }
+        function boot(){
+        startup();
+        setTimeout(() => {
+                    checkforupdate()
+                }, 4000);
+        }
         </script>
 
         <div class="welcomeback disabled">
@@ -129,17 +138,21 @@
 
         <!-- show special electron download channel -->
         <script>
-            if (info == undefined && ifPWA() == false) {
-                let tempinterval = setInterval(() => {
-                    if (mainchannelsset) {
-                  
-                        document.querySelector('[data-id="electron"]').setAttribute('data-special', true)
-                        clearInterval(tempinterval);
-                    } else {
-                        return;
-                    }
-                }, 100);
+            if (localStorage.getItem("installhb")) {
+               
+            
+                        makeChannel({
+                            assets: "assets/channels/",
+                            channelart: "channelart/",
+                            id: "homebrew",
+                            title: "Homebrew Channel",
+                            target: "homebrewchannel/index.html"
+                        });
+                        document.querySelector('[data-id="homebrew"]').setAttribute('data-special', true)
+
+                    
             }
+           
         </script>
     
         <div class="bottom-bar">
@@ -149,7 +162,7 @@
                 <span class="tag">Wii Settings</span>
             </div>
             <div class="info">
-                <span class="jg">Onliine</span>
+                <span class="jg" id="intoeoe">Welcome!</span>
                 <span id="hour"></span>
                 <span id="date"></span>
             </div>
@@ -164,18 +177,17 @@
     <div class="msgboard">
         <div class="bg"></div>
         <div class="card buttonlike" onclick="playSFX('letter-in.mp3', userConfig.sfxVol)">
-            <img src="assets/petermiiffin-head.png" class="mii" /><br>
-            <span>Reset Channel</span>
+            <span>A Heartfelt Welcome to Developing</span>
         </div>
         <div class="opened">
             <div class="memo">
-                <span class="title">Memo</span>
-                <img src="assets/petermiiffin-head.png" class="mii" title="Peter Miiffin lol" />
+                <span class="title">Happy Developing!</span>
                 <div class="lines">
-                    <span>This is for emergency uses only</span>
-                    <a href="reset.html">Reset</a>
+                    <span>Peter</span>
+                    <span>Love</span> <a href="settings/installer.html">kkmfd</a>
                 </div>
             </div>
+            
             <a class="alt-btn back" onmouseover="playSFX('button-hover.mp3', userConfig.sfxVol)">Back</a>
         </div>
         <div class="bottom">
@@ -205,7 +217,6 @@
                 <img src="assets/wii-logo.svg" />
             </div>
             <div class="cells">
-                <a class="info buttonlike" href="/credits" onmouseover="playSFX('button-hover.mp3', userConfig.sfxVol)" target="_blank"></a>
                 <a class="stngs buttonlike" href="/settings" onmouseover="playSFX('button-hover.mp3', userConfig.sfxVol)"></a>
             </div>
             <div class="bottombar">
@@ -217,7 +228,7 @@
     <div class="ui-sfx">
         <audio id="chSpec" src=""></audio>
     </div>
-
+   
     <script>
         // ## This is done in 'channels.js' now
         // CHANNEL ART LOAD
@@ -256,13 +267,18 @@
                     // Check what special channel this is
                     switch ($(this).data('id')) {
                         // These (as of currently) only need assets [and videoformat if not gif].
-                        case "electron":
+                        case "homebrew":
                             targetChannel = {
                                 assets: "assets/channels/",
-                                videoformat: "webp"
+                                videoformat: "gif"
                             }
                         break;
-                    
+                        case "testapp":
+                            targetChannel = {
+                                assets: "customchannels/banner/",
+                                videoformat: "gif"
+                            }
+                        break;
                         default:
                             alert(`The '${$(this).data('id')}' channel couldn't be found in the channel config!`);
                         break;
