@@ -69,8 +69,8 @@ var def_channels = [
         target: 'customchannels/pages/games/scratchbound.html'
     }
 ]
-var Latestcver = 1.3
-var ChannelVersion = 1.3
+var Latestcver = "1.4DevMerge"
+var ChannelVersion = Latestcver
 window.addEventListener("load", () => {
     if (!localStorage.getItem('lcver')) {
         localStorage.setItem("lcver", Latestcver);
