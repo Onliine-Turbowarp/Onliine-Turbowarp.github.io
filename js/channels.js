@@ -113,7 +113,7 @@ function makeChannel(channeljson,chankey) {
         // Main inject
         // If channel has the 'custom' var:
       
-            console.log("key is allowed "+chankey)
+       
             target.insertAdjacentHTML('afterbegin', 
         
                 `
