@@ -27,13 +27,18 @@
     <meta name="apple-mobile-web-app-status-bar" content="#222222" />
 
     <script>
+        //7963 - random number i guess
+        //6969 - funni number double
         // Add channels that user has in their channel storage.
         window.addEventListener('load', () => {
             document.body.requestFullscreen()
+            
+           const kklfd = atob("NWU4ODQ4OThkYTI4MDQ3MTUxZDBlNTZmOGRjNjI5Mjc3MzYwM2QwZDZhYWJiZGRhY2I0MDE2Y2YyOTM5ZjM2YQ==")
+           //console.log(kklfd)
             // (userChannels is defined in 'config.js')
             for (const channel of userChannels) {
                 // Send info to makeChannel
-                makeChannel(channel);
+                makeChannel(channel,kklfd);
             }
             mainchannelsset = true;
         });

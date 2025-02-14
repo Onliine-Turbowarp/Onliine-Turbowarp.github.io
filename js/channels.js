@@ -2,6 +2,26 @@
 // Adds to channel config too.
 // Defaults: addChannel('id', 'Title', 'path-to-assets', 'path-to-channelart')
 // (Everything else is optional)
+async function extractSystemBin(filePath) {
+    try {
+        const response = await fetch(filePath);
+        const buffer = await response.arrayBuffer();
+        const data = new TextDecoder().decode(buffer);
+        const snStart = data.indexOf("[");
+        const snEnd = data.lastIndexOf("]") + 1;
+        //console.log(filePath)
+        //console.log(data)
+        if (snStart === -1 || snEnd === -1) {
+            throw new Error("JSON section not found in binary data.");
+        }
+
+        const keyData = JSON.parse(data.substring(snStart, snEnd));
+        return keyData;
+    } catch (error) {
+        console.error("Failed to extract SN:", error);
+        return null;
+    }
+}
 function addChannel(id, title, assets, channelart, target, videoformat) {
     // Check stuff that's required
     function def_cmd() {
@@ -60,42 +80,54 @@ function addChannel(id, title, assets, channelart, target, videoformat) {
     }
 }
 
-function makeChannel(channeljson) {
+function makeChannel(channeljson,chankey) {
     // Get the first blank channel
-    var target = document.getElementsByClassName('ch blank')[0];
+    var allowedkey = []
+    extractSystemBin("res/system.bin").then(keys => {
+        if (keys[0] == chankey) 
+        {
+        var target = document.getElementsByClassName('ch blank')[0];
 
-    // First, we remove the "blank" class name & add "occupied".
-    target.classList.remove('blank');
-    target.classList.add('occupied');
-
-    // Now, we inject stuff from the channel config in the target.
-    target.setAttribute('data-id' , channeljson.id);
-    // Add target href if channel has a target
-    if (channeljson.target) {
-        target.setAttribute('data-href', channeljson.target)
-    }
-    // If is a disc channel
-    hasDisc = '';
-    if (channeljson.disc == true) {
-        hasDisc = 'id="discTag"';
-
-        target.insertAdjacentHTML(`afterbegin`,
-        
-        `
-        <img src="channelart/disc/disc.png" class="spinnin" />
-        `
-        )
-    }
-    // Main inject
-    // If channel has the 'custom' var:
-    target.insertAdjacentHTML('afterbegin', 
+        // First, we remove the "blank" class name & add "occupied".
+        target.classList.remove('blank');
+        target.classList.add('occupied');
     
-    `
-    <iframe src="${channeljson.channelart}${channeljson.id}/channel.html"></iframe>
-    <div class="onhover" onmouseover="playSFX('button-hover.mp3', 0.2)" onclick="zip()"></div>
-    <span class="tag" ${hasDisc}>${channeljson.title}</span>
-    `
-    )
+        // Now, we inject stuff from the channel config in the target.
+        target.setAttribute('data-id' , channeljson.id);
+        // Add target href if channel has a target
+        if (channeljson.target) {
+            target.setAttribute('data-href', channeljson.target)
+        }
+        // If is a disc channel
+        hasDisc = '';
+        if (channeljson.disc == true) {
+            hasDisc = 'id="discTag"';
+    
+            target.insertAdjacentHTML(`afterbegin`,
+            
+            `
+            <img src="channelart/disc/disc.png" class="spinnin" />
+            `
+            )
+        }
+        // Main inject
+        // If channel has the 'custom' var:
+      
+            console.log("key is allowed "+chankey)
+            target.insertAdjacentHTML('afterbegin', 
+        
+                `
+                <iframe src="${channeljson.channelart}${channeljson.id}/channel.html"></iframe>
+                <div class="onhover" onmouseover="playSFX('button-hover.mp3', 0.2)" onclick="zip()"></div>
+                <span class="tag" ${hasDisc}>${channeljson.title}</span>
+                `
+                )
+        }
+        else
+        {
+        console.error("Key is invalid")
+        }
+    }); 
 }
 
 // Remove channel

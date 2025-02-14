@@ -28,7 +28,7 @@ function startDateTime() {
 function disableSplash() {
     document.querySelector('splash').style.opacity = '0';
 }
-
+// Example usage
 // UI SFX
 function zip() {
     bgMusicToggle();
@@ -56,6 +56,7 @@ function settingsIn() {
 function startup(params) {
     // Remove event listener
     document.querySelector('.splash .warning').removeEventListener('click', startup, true)
+   
     // If the skip waring is in '?=' of the page, show loading instead.
     if (params == 'skipwarn') {
         setTimeout(() => {

@@ -89,8 +89,32 @@ function checkItems() {
         }
     });
 }
+var buttonsList = [
+    ".product"
+]
 
+function buttonInitClick () {
+    // Look for all the buttons on any page.
+    buttonsList.forEach(buttonName => {
+        if (document.querySelectorAll(buttonName).length > 0) {
+            document.querySelectorAll(buttonName).forEach(elmnt => {
+                // Shop buttons
+                if (buttonName === ".product") {
+                    if (!elmnt.parentElement.classList.contains('bottom')) {
+                        elmnt.addEventListener('click', (event) => {
+                            playSFX('button-select-big.mp3', userConfig.sfxVol);
+    
+                            if (elmnt.getAttribute('page')) {
+                                changePage(elmnt.getAttribute('page'));
+                            }
+                        });
+                    }
+                }
 
+            });
+        }
+    });
+}
 /**
  * Function to change the page content based on the provided htmlName.
  *
