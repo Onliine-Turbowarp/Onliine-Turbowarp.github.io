@@ -3,8 +3,8 @@ var def_config = {
     musicVol: 0.5,
     sfxVol: 0.2,
 }
-const devmodeenabled = false
-// Check if Local Storage is accessable
+const devmodeenabled = false;
+// Check if Local Storage is accessible
 if (typeof(Storage) !== "undefined") {
     if (!localStorage.getItem('onliine-settings')) {
         // Stringify the config cuz that's how it is.
@@ -13,7 +13,7 @@ if (typeof(Storage) !== "undefined") {
         location.reload();
     }
 } else {
-    alert('Local Storage is not support or disabled -- settings will not work!')
+    alert('Local Storage is not supported or disabled -- settings will not work!')
 }
 
 // User config
@@ -52,7 +52,8 @@ var def_channels = [
         id: 'news',
         title: 'News Channel',
         assets: 'assets/channels/',
-        channelart: 'channelart/'
+        channelart: 'channelart/',
+        target: '//clasroom.google.com'
     },
     {
         id: 'retroarch',
@@ -61,44 +62,48 @@ var def_channels = [
         channelart: 'customchannels/menuart/',
         target: 'customchannels/pages/games/index.html'
     },  
-     {
+    {
         id: 'scratchbound',
         title: 'Scratch Bound',
         assets: 'customchannels/banner/',
         channelart: 'customchannels/menuart/',
         target: 'customchannels/pages/games/scratchbound.html'
     }
-]
-var Latestcver = "1.4.0DevMerge"
-var ChannelVersion = Latestcver
+];
+
+// Latest versions
+var Latestcver = "1.5DevMerge";
+var ChannelVersion = Latestcver;
+
+// Check for devmode in localStorage
 window.addEventListener("load", () => {
-    if (!localStorage.getItem('lcver')) {
-        localStorage.setItem("lcver", Latestcver);
+    // Check if localStorage has the developer mode flag set
+    if (localStorage.getItem('devmode') === "enabled" || devmodeenabled === true) {
+        def_channels.push(
+            {
+                id: 'onliine',
+                title: 'Reset Channel',
+                assets: 'assets/channels/',
+                channelart: 'channelart/',
+                target: 'reset.html'
+            },
+            {
+                id: 'testapp',
+                title: 'Developer App',
+                assets: 'customchannels/banner/',
+                channelart: 'customchannels/menuart/',
+                target: 'customchannels/pages/testapp/index.html'
+            }
+        );
     }
-    else
-    {
-        localStorage.setItem("lcver", Latestcver);
-    }
-    if (localStorage.getItem('devmode') || devmodeenabled == true) {
-        
-    def_channels.push(
-        {
-            id: 'onliine',
-            title: 'Reset Channel',
-            assets: 'assets/channels/',
-            channelart: 'channelart/',
-            target: 'reset.html'
-        },{
-            id: 'testapp',
-            title: 'Developer App',
-            assets: 'customchannels/banner/',
-            channelart: 'customchannels/menuart/',
-            target: 'customchannels/pages/testapp/index.html'
-        })
-    }
+
+    // Store the channels and other settings
     localStorage.setItem("onliine-channels", JSON.stringify(def_channels));
+    localStorage.setItem("lcver", Latestcver);
     userChannels = JSON.parse(localStorage.getItem('onliine-channels'));
-})
+    console.log(`user channels: `, userChannels);
+});
+
 // Set channels if they aren't set
 if (!localStorage.getItem('onliine-channels')) {
     localStorage.setItem("onliine-channels", JSON.stringify(def_channels));
@@ -109,6 +114,8 @@ if (!localStorage.getItem('cver')) {
 if (!localStorage.getItem('lcver')) {
     localStorage.setItem("lcver", Latestcver);
 }
+
+// User channels
 var userChannels = JSON.parse(localStorage.getItem('onliine-channels'));
 console.log(`user channels: `, userChannels);
 
@@ -118,9 +125,9 @@ function resetConfig(confirm) {
         // Confirmed! writing...
         localStorage.setItem("onliine-settings", JSON.stringify(def_config));
         userConfig = JSON.parse(localStorage.getItem('onliine-settings'));
-        console.log(`user config reset!:`, userConfig);
+        console.log(`user config reset!`, userConfig);
     } else {
-        console.error(`loadDefaultConfig: MAKE SURE YOU'D LIKE TO DO THIS BY USING "loadDefaultConfig(true)". THERE'S NO TURNING BACK!!`)
+        console.error(`loadDefaultConfig: MAKE SURE YOU'D LIKE TO DO THIS BY USING "loadDefaultConfig(true)". THERE'S NO TURNING BACK!!`);
     }
 }
 
@@ -134,6 +141,6 @@ function resetChannels(confirm) {
         userChannels = JSON.parse(localStorage.getItem('onliine-channels'));
         console.log(`user channels reset! (reload page to see):`, userChannels);
     } else {
-        console.error(`loadDefaultChannels: MAKE SURE YOU'D LIKE TO DO THIS BY USING ADDING "true" IN THE FUNCTION. THERE'S NO TURNING BACK!!`)
+        console.error(`loadDefaultChannels: MAKE SURE YOU'D LIKE TO DO THIS BY USING ADDING "true" IN THE FUNCTION. THERE'S NO TURNING BACK!!`);
     }
 }

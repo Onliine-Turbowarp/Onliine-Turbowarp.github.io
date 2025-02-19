@@ -25,6 +25,76 @@
 	<meta name="keywords" content="riimake,onliine,wii,homebrew,wii simulator,wii menu,wii web" />
     <meta name="theme-color" content="#222222" />
     <meta name="apple-mobile-web-app-status-bar" content="#222222" />
+    <style>
+        /* Popup Styling */
+        .popup-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+            opacity: 0;
+            z-index: 999999999999999999999999999999999999999999999;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .popup {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            width: 500px;
+            z-index: 999999999999999999999999999999999999999999999;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .popup-header {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .popup-message {
+            margin: 15px 0;
+        }
+        .close-btn {
+            background: blue;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+        }
+        .close-btn:hover {
+            background: cyan;
+        }
+
+        /* Header Container */
+        .header-container {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Space between header and button */
+        }
+        .download-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .download-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Center H1 and H2 */
+        h1, h2.ToastingNoa {
+            text-align: center;
+        }
+    </style>
 
     <script>
         //7963 - random number i guess
@@ -53,6 +123,18 @@
     </script>
 </head>
 <body>
+        <!-- Popup Message -->
+        <div id="popupContainer" class="popup-container">
+            <div class="popup">
+                <div class="popup-header" id="popupTitle">Plugin Authors</div>
+                <div class="popup-message" id="popupMessage">
+                    Impact has been abonded, please use official galleries as extensions will not be updated here. <br><br>
+                -The Warp Core Team
+                </div>
+                <button class="close-btn" id="closebtnpopup" onclick="closePopup()">Close</button>
+            </div>
+        </div>
+    
     <div class="splash">
         <div class="warning">
             <div class="warning-container">
@@ -169,6 +251,7 @@
                 <span class="jg" id="intoeoe">Welcome!</span>
                 <span id="hour"></span>
                 <span id="date"></span>
+                <span id="sec"></span>
             </div>
             <div class="lateral right">
                 <img src="assets/right-button.png" class="right-btn" />
@@ -234,6 +317,50 @@
     </div>
    
     <script>
+             // Function to Open Popup
+             function openPopup() {
+            document.getElementById("popupContainer").style.visibility = "visible";
+            document.getElementById("popupContainer").style.opacity = "1";
+        }
+
+        // Function to Close Popup
+        function closePopup() {
+            document.getElementById("popupContainer").style.opacity = "0";
+            setTimeout(() => {
+                document.getElementById("popupContainer").style.visibility = "hidden";
+            }, 300);
+        }
+
+        // Auto-open popup after 1 second
+
+
+fetch("https://raw.githubusercontent.com/Onliine-Turbowarp/WiiOS-SepConfig/main/Config.json")
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("Failed to fetch the file");
+    }
+    return response.json();
+  })
+  .then(data => {
+    // Extract values from JSON
+    const popupTitle = data.Popup.PopupTitle;
+    const popupMessage = data.Popup.PopupMessage;
+    const showPopup = data.Popup.ShowPopup;
+    const showButton = data.Popup.AllowClosing;
+    // Update elements on the page
+    document.getElementById("popupTitle").textContent = popupTitle;
+    document.getElementById("popupMessage").textContent = popupMessage;
+  if (showButton == false) {
+    document.getElementById("closebtnpopup").style.visibility = "hidden";
+
+  }
+   if (showPopup == "true") {
+        setTimeout(openPopup, 4000);
+   }
+  })
+  .catch(error => { 
+    console.error("Error fetching or parsing JSON:", error);
+  });
         // ## This is done in 'channels.js' now
         // CHANNEL ART LOAD
         // $(document).ready(function() {

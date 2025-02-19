@@ -6,6 +6,7 @@
     <title>Update Detected!</title>
     <link rel="manifest" href="../manifest.json">
     <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <script src="/js/jquery.js"></script>
     <script src="/js/howler.min.js"></script>
     <script src="/js/audio.js"></script>
@@ -114,7 +115,9 @@
                     <img src="../assets/next-hover.png" class="hover" />
                     <img src="../assets/next-default.png" class="def" />
                 </div>
-
+                <div class="returndialog" id="dialogue">
+                    
+                </div>
                 <script>
                     //PAGE PREV/NEXT
                     $('.prev').on('click', function() {
@@ -141,8 +144,9 @@
                 </script>
             </div>
 
-            <div id="setting-popup"></div>
+            
             <div id="setting-pages">
+               
                 <div id="setting-page" class="ver">
                     <div class="content">
                         The System requires an channel update to sync to the latest channels, please go to the next page to update and get more info
@@ -152,6 +156,10 @@
                     <div class="content">
                         Current version&nbsp;<span id="versionprint">a</span><br>
                         latest Version available: <span id="updatedver"></span><br>
+                        <div class="w3-light-grey">
+                            <div id="myBar" class="w3-container w3-green" style="height:24px;width:1%"></div>
+                          </div>
+                          
                         <span id="precentage"></span><br>
                         <button class="set-btn" id="Install" onclick="clear()">Install</button>
                     </div>
@@ -165,6 +173,7 @@
     </div>
  
 <script>
+    
  document.querySelectorAll('#setting-page button').forEach(elmnt => {
         // On hover
         elmnt.addEventListener('mouseover', (event) => {
@@ -209,12 +218,26 @@
     localStorage.setItem("cver",latestver)
     document.getElementById("versionprint").innerText = currentver + " To " + latestver
     document.getElementById("updatedver").innerText = 'Upgrade In progress...'
-        document.getElementById("precentage").innerText = "Updating Channels | Estimated time: 10 Seconds"
+        document.getElementById("precentage").innerText = "Updating Channels | Estimated time: 30 Seconds"
         document.getElementById("Install").style = "display: none;"
-        setTimeout(() => {
-                    document.location = "/index.html?skipwarn"
+        //document.getElementById("dialogue").style = "display: flex";
+        var elem = document.getElementById("myBar");
+  var width = 0;
+  var id = setInterval(frame, 500);
+  function frame() {
+    if (width >= 100) {
+      clearInterval(id);
+      document.location = "/index.html?skipwarn"
+    } else {
+      width++;
+      elem.style.width = width + '%';
+      document.getElementById("precentage").innerText = "Updating Channels | Estimated time: 30 Seconds | "+width+'%';
+    }
+  }
+        //setTimeout(() => {
+             //       document.location = "/index.html?skipwarn"
 
-                }, 10000);
+               // }, 10000);
     }
    function update() {
     const currentver = localStorage.getItem("cver")

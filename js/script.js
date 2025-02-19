@@ -13,15 +13,15 @@ function showDateTime() {
   
     var hour = date.getHours();
     var min = date.getMinutes().toString().padStart(2, '0');
-
-    var time = hour + ":" + min;
+    var sec = date.getSeconds().toString()
+    var time = hour + ":" + min + ":"+sec;
     
     hourDiv.innerText = `${time}`;
     dateDiv.innerText = `${today}`;
     dateDiary.innerText = `${today}`;
 }
 function startDateTime() {
-    setInterval(showDateTime, 1000);
+    setInterval(showDateTime, 50);
 }
 
 // Disable splash
