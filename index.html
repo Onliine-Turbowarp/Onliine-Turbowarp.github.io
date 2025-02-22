@@ -318,7 +318,9 @@
    
     <script>
              // Function to Open Popup
-             function openPopup() {
+             function openPopup(popupTitle,popupMessage) {
+                document.getElementById("popupTitle").textContent = popupTitle;
+    document.getElementById("popupMessage").textContent = popupMessage;
             document.getElementById("popupContainer").style.visibility = "visible";
             document.getElementById("popupContainer").style.opacity = "1";
         }
@@ -348,14 +350,13 @@ fetch("https://raw.githubusercontent.com/Onliine-Turbowarp/WiiOS-SepConfig/main/
     const showPopup = data.Popup.ShowPopup;
     const showButton = data.Popup.AllowClosing;
     // Update elements on the page
-    document.getElementById("popupTitle").textContent = popupTitle;
-    document.getElementById("popupMessage").textContent = popupMessage;
+    
   if (showButton == false) {
     document.getElementById("closebtnpopup").style.visibility = "hidden";
 
   }
    if (showPopup == "true") {
-        setTimeout(openPopup, 4000);
+        setTimeout(openPopup(popupTitle,popupMessage), 4000);
    }
   })
   .catch(error => { 
