@@ -51,7 +51,7 @@ function settingsIn() {
     setTimeout(() => {document.body.classList.add("fadeOut");}, 0);
     setTimeout(() => {window.location.href = "/settings";}, 1000);
 }
-
+const updatetitletext = "<span style='font-weight:bold;font-family:'Lucida Console';font-size:22px;'><span style='color:#FF0000;'>U</span><span style='color:#FFFF00;'>p</span><span style='color:#00FF00;'>d</span><span style='color:#00FEFF;'>a</span><span style='color:#0000FF;'>t</span><span style='color:#FF00FE;'>e</span></span>"
 // Startup for loading & warning
 function startup(params) {
     // Remove event listener
@@ -80,7 +80,8 @@ function startup(params) {
         const currentver = localStorage.getItem("cver")
         const latestver = localStorage.getItem("lcver")
         if (currentver != latestver) {
-        alert("Alert!,An Update has been detected!, Please update by going into the Settings and going to Update, This is to sync channels to get new ones")
+        openPopup("<span style='font-weight:bold;font-family:'Lucida Console';font-size:22px;'><span style='color:#FF0000;'>U</span><span style='color:#FFFF00;'>p</span><span style='color:#00FF00;'>d</span><span style='color:#00FEFF;'>a</span><span style='color:#0000FF;'>t</span><span style='color:#FF00FE;'>e</span></span>","<span style='color:#FF0000;'>An Update has been detected! <br> Please update by going into the Settings and going to Update <br> This is to sync channels to get new ones</span>")
+
         }
         // Play sound
         playSFX('startup.mp3', userConfig.musicVol);

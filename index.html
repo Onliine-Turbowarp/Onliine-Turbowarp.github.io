@@ -27,6 +27,10 @@
     <meta name="apple-mobile-web-app-status-bar" content="#222222" />
     <style>
         /* Popup Styling */
+        @keyframes BlurIn {
+  from {    FILTER: brightness(0) BLUR(50px); scale: 0.0;}
+  to {      FILTER: brightness(1) BLUR(0px); scale: 1.0;}
+}
         .popup-container {
             position: fixed;
             top: 0;
@@ -40,22 +44,29 @@
             visibility: hidden;
             opacity: 0;
             z-index: 999999999999999999999999999999999999999999999;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
+            transition: opacity 0.98s ease, visibility 0.98s ease;
         }
         .popup {
-            background: white;
+           
             padding: 20px;
-            border-radius: 8px;
+           
             text-align: center;
             width: 500px;
             z-index: 999999999999999999999999999999999999999999999;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, .25);
+            border-radius: 20px;
+            background-color: rgba(255, 255, 255, 0.45);
+             box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+
+            backdrop-filter: blur(15px);
         }
         .popup-header {
+            color: white;
             font-size: 20px;
             font-weight: bold;
         }
         .popup-message {
+            color: white;
             margin: 15px 0;
         }
         .close-btn {
@@ -126,8 +137,8 @@
         <!-- Popup Message -->
         <div id="popupContainer" class="popup-container">
             <div class="popup">
-                <div class="popup-header" id="popupTitle">Plugin Authors</div>
-                <div class="popup-message" id="popupMessage">
+                <div class="popup-header" id="popupTitle" bbcode_enabled >Plugin Authors</div>
+                <div class="popup-message" id="popupMessage" bbcode_enabled>
                     Impact has been abonded, please use official galleries as extensions will not be updated here. <br><br>
                 -The Warp Core Team
                 </div>
@@ -319,8 +330,10 @@
     <script>
              // Function to Open Popup
              function openPopup(popupTitle,popupMessage) {
-                document.getElementById("popupTitle").textContent = popupTitle;
-    document.getElementById("popupMessage").textContent = popupMessage;
+             const notif = new Audio("audio/notification.wav")
+             notif.play()
+                document.getElementById("popupTitle").innerHTML = popupTitle;
+    document.getElementById("popupMessage").innerHTML = popupMessage;
             document.getElementById("popupContainer").style.visibility = "visible";
             document.getElementById("popupContainer").style.opacity = "1";
         }

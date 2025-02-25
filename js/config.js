@@ -53,7 +53,7 @@ var def_channels = [
         title: 'News Channel',
         assets: 'assets/channels/',
         channelart: 'channelart/',
-        target: '//clasroom.google.com'
+        target: '//example.com'
     },
     {
         id: 'retroarch',
@@ -68,6 +68,13 @@ var def_channels = [
         assets: 'customchannels/banner/',
         channelart: 'customchannels/menuart/',
         target: 'customchannels/pages/games/scratchbound.html'
+    },
+    {
+        id: 'testapp',
+        title: 'PW Channel - InDevelopment',
+        assets: 'customchannels/banner/',
+        channelart: 'customchannels/menuart/',
+        target: '//impact.warpcore.live/'
     }
 ];
 
