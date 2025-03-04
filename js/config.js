@@ -74,7 +74,7 @@ var def_channels = [
         title: 'Impact Channel - InDevelopment',
         assets: 'customchannels/banner/',
         channelart: 'customchannels/menuart/',
-        target: '//impact.warpcore.live/w'
+        target: '//impact.warpcore.live/W/index.html'
     }
 ];
 
