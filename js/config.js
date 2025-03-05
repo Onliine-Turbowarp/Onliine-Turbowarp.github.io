@@ -72,7 +72,7 @@ var def_channels = [
     {
         id: 'testapp',
         title: 'Impact Channel - InDevelopment',
-        assets: 'customchannels/banner/',
+        assets: '../customchannels/banner/',
         channelart: 'customchannels/menuart/',
         target: '//impact.warpcore.live/W/index.html'
     }
