@@ -1,5 +1,5 @@
 // Change bg music and load
-const title = "Sample App"
+const title = "Impact"
 window.addEventListener('load', () => {
     // Aspect ratio loop
     setInterval(() => {
