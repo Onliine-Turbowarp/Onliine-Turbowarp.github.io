@@ -29,6 +29,7 @@ var def_channels = [
         title: 'Disc Channel',
         assets: 'assets/channels/',
         channelart: 'channelart/',
+        target: '//dolphin-emu.org/download/?ref=btn',
         disc: true
     },
     {
@@ -41,7 +42,8 @@ var def_channels = [
         id: 'photo',
         title: 'Photo Channel',
         assets: 'assets/channels/',
-        channelart: 'channelart/'
+        channelart: 'channelart/',
+        target: 'photo/index.html
     },
     {
         id: 'shop',
@@ -62,7 +64,7 @@ var def_channels = [
         title: 'Wii Arch',
         assets: 'customchannels/banner/',
         channelart: 'customchannels/menuart/',
-        target: 'customchannels/pages/games/index.html'
+        target: '//web.libretro.com/'
     },  
     {
         id: 'scratchbound',
@@ -73,10 +75,10 @@ var def_channels = [
     },
     {
         id: 'testapp',
-        title: 'PW Channel - InDevelopment',
-        assets: 'customchannels/banner/',
+        title: 'Impact Channel',
+        assets: '../customchannels/banner/',
         channelart: 'customchannels/menuart/',
-        target: '//impact.warpcore.live/'
+        target: '//impact.warpcore.live/W/index.html'
     }
 ];
 
