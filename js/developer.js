@@ -2,7 +2,7 @@
  * Initializes the buttons for functionality.
  */
 function InitMenu() {
-    const MenuMusic = new Audio("/audio/home-in.mp3")
+    const MenuMusic = new Audio("/audio/Connect.mp3")
     //MenuMusic.loop = true
     MenuMusic.play()
 }

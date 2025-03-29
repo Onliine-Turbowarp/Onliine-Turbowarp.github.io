@@ -3,6 +3,8 @@ var def_config = {
     musicVol: 0.5,
     sfxVol: 0.2,
 }
+
+
 const devmodeenabled = false;
 // Check if Local Storage is accessible
 if (typeof(Storage) !== "undefined") {
@@ -85,6 +87,7 @@ var ChannelVersion = Latestcver;
 // Check for devmode in localStorage
 window.addEventListener("load", () => {
     // Check if localStorage has the developer mode flag set
+
     if (localStorage.getItem('devmode') === "enabled" || devmodeenabled === true) {
         def_channels.push(
             {
